@@ -22,7 +22,6 @@ function App() {
 const [theme, setTheme] = useState(loadThemeFromLocalStorage());
 
     useEffect(() => {
-        console.log('Theme ở App:', theme);
         saveThemeToLocalStorage(theme);
     }, [theme]);
 

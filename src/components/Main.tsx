@@ -8,7 +8,7 @@ import Focast from './Focast'
 function Main(){
 
   return(
-    <div className="Main" >
+    <div className="Main">
           {/* <Loader/> */}
         <CurrentWheather/>
         <Focast/>

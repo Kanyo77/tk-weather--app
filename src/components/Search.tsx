@@ -1,54 +1,60 @@
+import {useEffect } from 'react';
 import '../styles/components/Search.scss'
 import {useState,useContext} from 'react';
 import {searchPlaces} from '../api'
-import WeatherContext from '../context/weather.context';
+import { useWeather } from '../context/weather.context';
+import cities from '../api/city-list.json';
 
 function Search(){
-    const { setPlace } = useContext(WeatherContext);
-    const [text,setText] = useState('')
-    const [searchResults, setSearchResults] = useState([]);
-    const [openSearchResults, setOpenSearchResults] = useState(false);
+      const [searchText, setSearchText] = useState('');
+      const [filteredCities, setFilteredCities] = useState([]);
+      const { setSelectedCity } = useWeather();
+      
+  useEffect(() => {
+  if (searchText.trim() === '') {
+    setFilteredCities([]);
+  } else {
+    const results = cities.filter((item) =>
+    item.city.toLowerCase().includes(searchText.toLowerCase())
+    );
+    setFilteredCities(results);
+  }
+}, [searchText]);
 
-    async function onSearch(e) {
-    setText(e.target.value);
-    const data = await searchPlaces(e.target.value);
-    setSearchResults(data);
-    setOpenSearchResults(data?.length || 0);
-
-    const changePlace = (place) => {
-    setPlace(place);
-    setText('');
-    setOpenSearchResults(false);
-  };
+  function handleCityClick (cityName){
+    setSelectedCity(cityName)
+    console.log(cityName)
   }
 
+  const handleKeyUp = (event) => {
+    if (event.key === 'Enter') {
+        conso(); // Gọi hàm bạn muốn khi nhấn Enter
+    }
+};
 
     return(
     <div className="search-container">
         <div className="search-icon">
-            <i class="bi bi-search"></i>
+            <i class="bi bi-search" ></i>
         </div>
-        <div className="search-input">
-            <input type="text" name="search-city" placeholder="Search city" value={text}
-            onChange={onSearch}
+        <div className="search-input"  value={searchText} 
+         onChange={(e) => setSearchText(e.target.value)}>
+            <input type="text" name="search-city" placeholder="Search city"
             /> 
         </div>
- {openSearchResults && (
+
           <div className='search-results'>
             <div className='results-container'>
-              {searchResults.map((place) => (
+               {filteredCities.map((item, index) => (
                 <div
-                  className='result'
-                  key={place.place_id}
-                  onClick={() => changePlace(place)}
-                >
-                  {place.name}, {place.adm_area1}, {place.country}
+                  className='result' key={index} onClick={() => handleCityClick (item.city)}
+                  >
+               {item.city}
                 </div>
-              ))}
+               ))}
             </div>
           </div>
-        )}
-    </div>
+      </div>
     )
 }
 

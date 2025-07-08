@@ -18,7 +18,6 @@ function Settings({ theme, setTheme }) {
 
     const changeUnits= (system) => {
         setCurrentSystem(system);
-        console.log(system)
     }
 
 

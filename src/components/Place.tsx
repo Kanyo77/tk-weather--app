@@ -1,13 +1,12 @@
-import React from "react";
-import { useContext } from 'react';
-// import WeatherContext from '../context/weather.context'
+import { useWeather } from '../context/weather.context';
+
 function Place(){
-    //  const { place } = useContext(WeatherContext);
+    const { selectedCity } = useWeather();
     return(
-        <div className="Place">
-          
-            <i class="bi bi-geo-alt"></i>
-            {/* <b> {place.name} </b>,{place.country} */}
+        <div className="Place">       
+            <i class="bi bi-geo-alt"></i>   
+
+            <b> {selectedCity || 'Hồ Chí Minh'}</b>
         </div>
     )
 }

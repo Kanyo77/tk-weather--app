@@ -15,7 +15,7 @@ console.log(time)
 
     const handleClick = (evt) =>{
         viewElement(evt); // Lưu giờ click vào context
-        loadCurrentWeather()
+        // loadCurrentWeather()
     }
 
 useEffect(() => {

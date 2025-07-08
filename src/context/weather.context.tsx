@@ -6,59 +6,91 @@ import {
   UNITS,
 } from '../constants';
 import hourlyForecast from '../api/hourly-forecast.json';
-
+// import dailyforecast from '../api/daily-forecast.json';
 const WeatherContext = createContext(); 
 
 function WeatherProvider({ children }){
 
-      const [place, setPlace] = useState(DEFAULT_PLACE);
+     const [place, setPlace] = useState(DEFAULT_PLACE);
      const [selectedTime, setSelectedTime] = useState(null);
       const [currentData, setCurrentData] = useState(null);
+      // const [selectedCity, setSelectedCity] = useState<string | null>(null);
 
-    const viewElement = (evt) =>{
+      const [selectedCity, setSelectedCity] = useState(() => {
+      const saved = localStorage.getItem('selectedCity');
+      return saved ? JSON.parse(saved) : null;
+      });
+
+      useEffect(() => {
+        if (selectedCity) {
+          localStorage.setItem('selectedCity', JSON.stringify(selectedCity));
+        }
+      }, [selectedCity]);
+
+    // const viewElement = (evt) =>{
+    // const widget = evt.currentTarget;
+    // const timeElement = widget.querySelector('.time');
+
+    // if (timeElement) {
+    //   setSelectedTime(timeElement.innerText)
+    //    console.log('Giá trị time:', timeElement.innerText);
+    // }
+    // }
+
+    // const loadCurrentWeather = () => {
+    //     let targetHour;
+    //     if (selectedTime === null) {
+    //         targetHour = new Date().getHours(); // Nếu chưa click, load giờ hiện tại
+    //     } else {
+    //         const [hourStr] = selectedTime.split(':');
+    //         targetHour = parseInt(hourStr);
+    //     }
+
+    //     const foundData = hourlyForecast.hourly.data.find(item =>
+    //         new Date(item.date).getHours() === targetHour
+    //     );
+    // }
+
+    //  useEffect(() => {
+    //     if (selectedTime !== null) {
+    //        console.log("✅ Giờ mới được chọn:", selectedTime); // đúng giá trị
+    //         loadCurrentWeather();
+    //     }
+    // }, [selectedTime]);
+
+
+      const viewElement = (evt: React.MouseEvent<HTMLDivElement>) => {
       const widget = evt.currentTarget;
-
-    const timeElement = widget.querySelector('.time');
+      const timeElement = widget.querySelector('.time');
 
     if (timeElement) {
-      setSelectedTime(timeElement.innerText)
-       console.log('Giá trị time:', timeElement.innerText);
+      const timeValue = timeElement.textContent || '';
+      setSelectedTime(timeValue);
+      console.log(' Giá trị time:', timeValue);
     }
+  };
 
-     useEffect(() => {
-        if (selectedTime !== null) {
-            loadCurrentWeather();
-        }
-    }, [selectedTime]);
+  // 👉 Tự động load dữ liệu theo selectedTime
+  useEffect(() => {
+    const hour = selectedTime === null
+      ? new Date().getHours() // giờ hiện tại
+      : parseInt(selectedTime.split(':')[0]);
 
+    const matched = hourlyForecast.hourly.data.find(item =>
+      new Date(item.date).getHours() === hour
+    );
+
+    if (matched) {
+      setCurrentData(matched);
+      console.log('✅ Dữ liệu thời tiết đã chọn:', matched);
     }
-    const loadCurrentWeather = () => {
-        let targetHour;
-
-        if (selectedTime === null) {
-            targetHour = new Date().getHours(); // Nếu chưa click, load giờ hiện tại
-        } else {
-            const [hourStr] = selectedTime.split(':');
-            targetHour = parseInt(hourStr);
-        }
-
-        const foundData = hourlyForecast.hourly.data.find(item =>
-            new Date(item.date).getHours() === targetHour
-        );
-
-        if (foundData) {
-            setCurrentData(foundData);
-            console.log(foundData)
-            console.log('co')
-        }else
-        {
-          console.log('ko')
-        }
-    
-    }
+  }, [selectedTime]);
 
     return(
-           <WeatherContext.Provider value={{ setPlace,viewElement,loadCurrentWeather, selectedTime, currentData  }}>
+           <WeatherContext.Provider value={{ setPlace,viewElement, selectedTime, currentData,
+            selectedCity,
+    setSelectedCity,
+             }}>
                 {children}            
            </WeatherContext.Provider>
 
