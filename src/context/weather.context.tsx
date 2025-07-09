@@ -6,7 +6,7 @@ import {
   UNITS,
 } from '../constants';
 import hourlyForecast from '../api/hourly-forecast.json';
-// import dailyforecast from '../api/daily-forecast.json';
+
 const WeatherContext = createContext(); 
 
 function WeatherProvider({ children }){
@@ -14,7 +14,6 @@ function WeatherProvider({ children }){
      const [place, setPlace] = useState(DEFAULT_PLACE);
      const [selectedTime, setSelectedTime] = useState(null);
       const [currentData, setCurrentData] = useState(null);
-      // const [selectedCity, setSelectedCity] = useState<string | null>(null);
 
       const [selectedCity, setSelectedCity] = useState(() => {
       const saved = localStorage.getItem('selectedCity');
@@ -26,37 +25,6 @@ function WeatherProvider({ children }){
           localStorage.setItem('selectedCity', JSON.stringify(selectedCity));
         }
       }, [selectedCity]);
-
-    // const viewElement = (evt) =>{
-    // const widget = evt.currentTarget;
-    // const timeElement = widget.querySelector('.time');
-
-    // if (timeElement) {
-    //   setSelectedTime(timeElement.innerText)
-    //    console.log('Giá trị time:', timeElement.innerText);
-    // }
-    // }
-
-    // const loadCurrentWeather = () => {
-    //     let targetHour;
-    //     if (selectedTime === null) {
-    //         targetHour = new Date().getHours(); // Nếu chưa click, load giờ hiện tại
-    //     } else {
-    //         const [hourStr] = selectedTime.split(':');
-    //         targetHour = parseInt(hourStr);
-    //     }
-
-    //     const foundData = hourlyForecast.hourly.data.find(item =>
-    //         new Date(item.date).getHours() === targetHour
-    //     );
-    // }
-
-    //  useEffect(() => {
-    //     if (selectedTime !== null) {
-    //        console.log("✅ Giờ mới được chọn:", selectedTime); // đúng giá trị
-    //         loadCurrentWeather();
-    //     }
-    // }, [selectedTime]);
 
 
       const viewElement = (evt: React.MouseEvent<HTMLDivElement>) => {

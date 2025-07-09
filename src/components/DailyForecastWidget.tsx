@@ -1,7 +1,12 @@
 import WeatherIcon from './WeatherIcon'
 import hourlyforecast from '../api/daily-forecast.json'
+import { useWeather } from '../context/weather.context';
+import { UNITS } from '../constants';
 
 function DailyForecastWidget(){
+    const { viewElement,loadCurrentWeather} = useWeather();
+        const { measurementSystem } = useWeather(); // Lấy từ context
+                const units = UNITS[measurementSystem] || UNITS.metric;
     return(
          <div className="widget-container">
                    {hourlyforecast.daily.data.map((item, index) => (
@@ -18,12 +23,12 @@ function DailyForecastWidget(){
                            <WeatherIcon iconNumber={item.icon} />
                         </div>
                       <div className="temperature_max">
-                         {Math.round(item.temperature_max)} oC</div>
+                         {Math.round(item.temperature_max)} {units.temperature}</div>
                      </div>
-                      <div className="temperature_min">{Math.round(item.temperature_min)} oC</div>
+                      <div className="temperature_min">{Math.round(item.temperature_min)} {units.temperature}</div>
        
 
-                      <div className="wind">{item.precipitation.total} mph </div>
+                      <div className="wind">{item.precipitation.total} {units.precipitation} </div>
                       
                       </div>
                    ))}

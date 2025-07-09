@@ -4,12 +4,13 @@ import '../styles/components/CurrentWeather.scss'
 
 import WeatherIcon from './WeatherIcon'
 import { useWeather } from '../context/weather.context';
+import { UNITS } from '../constants';
 
 function CurrentWheather(){
+         const { measurementSystem } = useWeather(); // Lấy từ context
+        const units = UNITS[measurementSystem] || UNITS.metric;
+        
        const { currentData, selectedTime } = useWeather();
-        // const render = () => {
-        //   ren = {currentData.icon_num}
-        // }
       if (!currentData) {
     return <div>Loading...</div>; // tránh lỗi undefined khi chưa có data
   }
@@ -24,9 +25,9 @@ function CurrentWheather(){
                   <WeatherIcon iconNumber={currentData.icon} />
                </div>
                <div className="value">
-                   <div className='real'> {Math.round(currentData.temperature)}oC</div>
-                  <div className='feels_like'>{Math.round(currentData.feels_like)} oC </div>
-                    {/* <div className='summary'>{currentweather.current.summary} </div> */}
+                   <div className='real'> {Math.round(currentData.temperature)} {units.temperature}</div>
+                  <div className='feels_like'>{Math.round(currentData.feels_like)} {units.temperature}</div>
+                    
 
                     <div className='summary'>{currentData.summary} </div>
 
@@ -40,7 +41,7 @@ function CurrentWheather(){
                   <div className='widget-container'>       
                   <div className='info'>
                       <div className='icon'><i className='bi bi-droplet'></i></div>
-                      <div className='value'>{currentData.precipitation.type} mm/h</div>
+                      <div className='value'>{currentData.precipitation.type} {units.precipitation}</div>
                   </div>
                   <div className='name'>precipitation</div>
                   </div>
@@ -51,7 +52,7 @@ function CurrentWheather(){
                   <div className='info'>
                       <div className='icon'><i className='bi bi-wind'></i></div>
                       <div className='value'>
-                        {currentData.wind.speed} mph
+                        {currentData.wind.speed}  {units.wind_speed}
                          </div>
                   </div>
                  <div className='name'>wind speed</div>
@@ -62,7 +63,7 @@ function CurrentWheather(){
                   <div className='widget-container'>       
                   <div className='info'>
                       <div className='icon'><i className='bi bi-moisture'></i></div>
-                      <div className='value'>{currentData.humidity} %</div>
+                      <div className='value'>{currentData.humidity} {units.humidity}</div>
                   </div>
                  <div className='name'>humidity</div>
                   </div>
@@ -72,7 +73,7 @@ function CurrentWheather(){
                   <div className='widget-container'>       
                   <div className='info'>
                       <div className='icon'><i className='bi bi-sunglasses'></i></div>
-                      {currentData.uv_index}
+                      {currentData.uv_index} {units.uv_index}
                   </div>
                  <div className='name'>
                uv index</div>                  
@@ -82,7 +83,7 @@ function CurrentWheather(){
                   <div className='widget-container'>       
                   <div className='info'>
                       <div className='icon'><i className='bi bi-clouds-fill'></i></div>
-                      <div className='value'> {currentData.uv_index} %</div>
+                      <div className='value'> {currentData.cloud_cover} {units.cloud_cover}</div>
                   </div>
                  <div className='name'>cloud cover</div>
                   </div>
@@ -92,7 +93,7 @@ function CurrentWheather(){
                   <div className='info'>
                       <div className='icon'><i className='bi bi-eye'></i></div>
                       <div className='value'>
-                        {currentData.visibility} ml</div>
+                        {currentData.visibility} {units.visibility}</div>
                   </div>
                 <div className='name'>visibility</div>
                   </div>

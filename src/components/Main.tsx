@@ -5,13 +5,13 @@ import CurrentWheather from './CurrentWheather'
 // import WeatherContext from '../context/weather.context';
 import Loader from './Loader'
 import Focast from './Focast'
-function Main(){
+function Main({ measurementSystem }){
 
   return(
     <div className="Main">
           {/* <Loader/> */}
         <CurrentWheather/>
-        <Focast/>
+        <Focast />
     </div>
 
   )
