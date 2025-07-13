@@ -1,5 +1,5 @@
-// {iconNumber,summary}
-function WeatherIcon({ iconNumber }: { iconNumber: number }){
+
+function WeatherIcon({iconNumber}){
 return(
      <img src={`/dist/set01/big/${iconNumber}.png`} alt="" />
 

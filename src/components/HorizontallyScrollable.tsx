@@ -1,5 +1,4 @@
 import { useRef } from 'react';
-
 function HorizontallyScrollable({ children, className = '' }) {
   const scrollRef = useRef();
 

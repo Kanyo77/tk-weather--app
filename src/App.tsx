@@ -6,32 +6,23 @@ import 'bootstrap-icons/font/bootstrap-icons.css'
 import { MEASUREMENT_SYSTEMS } from './constants';
 function App() {
 
-    const THEME_KEY = 'app_theme';
-     const [measurementSystem, setMeasurementSystem] = useState(MEASUREMENT_SYSTEMS.AUTO);
-    
-    const saveThemeToLocalStorage = (theme) => {
+  const THEME_KEY = 'app_theme';
+  const [measurementSystem, setMeasurementSystem] = useState(MEASUREMENT_SYSTEMS.AUTO);
+
+  const saveThemeToLocalStorage = (theme) => {
     localStorage.setItem(THEME_KEY, JSON.stringify(theme));
-};
+  };
 
- const loadThemeFromLocalStorage = () => {
+  const loadThemeFromLocalStorage = () => {
     const storedTheme = localStorage.getItem(THEME_KEY);
-    return storedTheme ? JSON.parse(storedTheme) : true; // Nếu không có thì mặc định là theme dark
-};
+    return storedTheme ? JSON.parse(storedTheme) : true;
+  };
 
-const [theme, setTheme] = useState(loadThemeFromLocalStorage());
+  const [theme, setTheme] = useState(loadThemeFromLocalStorage());
 
-    useEffect(() => {
-        saveThemeToLocalStorage(theme);
-    }, [theme]);
-
-    
-      useEffect(() => {
-    const savedSystem = localStorage.getItem('measurementSystem');
-    if (savedSystem) {
-      setMeasurementSystem(savedSystem);
-    }
-  }, []);
- // don vi
+  useEffect(() => {
+    saveThemeToLocalStorage(theme);
+  }, [theme]);
 
   useEffect(() => {
     const savedSystem = localStorage.getItem('measurementSystem');
@@ -40,19 +31,22 @@ const [theme, setTheme] = useState(loadThemeFromLocalStorage());
     }
   }, []);
 
-  // (Tùy chọn) Lưu vào localStorage
+  useEffect(() => {
+    const savedSystem = localStorage.getItem('measurementSystem');
+    if (savedSystem) {
+      setMeasurementSystem(savedSystem);
+    }
+  }, []);
+
   useEffect(() => {
     localStorage.setItem('measurementSystem', measurementSystem);
   }, [measurementSystem]);
 
   return (
-    //  <div className='App-dark'> 
-     <div className= {`App-${theme ?'dark':'light'}`}> 
-      {/*    */}
+    <div className={`App-${theme ? 'dark' : 'light'}`}>
       <Header theme={theme} setTheme={setTheme} measurementSystem={measurementSystem}
-             setMeasurementSystem={setMeasurementSystem}/>
-      {/* <CurrentWheather/> */}
-    <Main measurementSystem={measurementSystem}/>
+        setMeasurementSystem={setMeasurementSystem} />
+      <Main measurementSystem={measurementSystem} />
 
     </div>
   )

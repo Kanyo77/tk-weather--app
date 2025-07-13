@@ -1,11 +1,11 @@
 import '../styles/components/Loader.scss'
 
-function Loader(){
-    return(
+function Loader() {
+    return (
         <div className="Loader">
-            <div className="loader" style={{ width: '1500px', } }></div>
+            <div className="loader" style={{ width: '1500px', }}></div>
         </div>
-        
+
     )
 }
 

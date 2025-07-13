@@ -1,20 +1,15 @@
-import React, { createContext, useState, useEffect } from 'react';
+import { useState } from 'react';
 
-function themeBackground(){
-   
+function themeBackground() {
+
   const [theme, setTheme] = useState(true);
 
-    // useEffect(() => {
-    //     console.log('Theme ở App:', theme);
-    // }, [theme]);
-
-     return (
-        <div className={`app ${theme}`}>
-            <Header theme={theme} setTheme={setTheme} />
-        </div>
-    );
+  return (
+    <div className={`app ${theme}`}>
+      <Header theme={theme} setTheme={setTheme} />
+    </div>
+  );
 }
-
 
 export { ThemeProvider };
 export default ThemeContext;
