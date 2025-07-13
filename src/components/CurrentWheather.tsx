@@ -1,21 +1,31 @@
-import '../styles/components/Main.scss'
-import '../styles/components/CurrentWeather.scss'
+// Hiển thị thông tin thời tiết hiện tại bao gồm:
+// - Nhiệt độ thực tế và cảm nhận
+// - Tóm tắt trạng thái thời tiết (summary)
+// - Các thông tin khác: mưa, gió, độ ẩm, UV, mây, tầm nhìn
 
+import '../styles/components/Main.scss'
+import Loader from './Loader'
+import '../styles/components/CurrentWeather.scss'
 import WeatherIcon from './WeatherIcon'
 import { useWeather } from '../context/weather.context';
 import { UNITS } from '../constants';
 
 function CurrentWheather() {
+  // Lấy đơn vị đo hiện tại từ context , nếu không có mặt định sẽ là metric
   const { measurementSystem } = useWeather();
   const units = UNITS[measurementSystem] || UNITS.metric;
 
+  // Lấy dữ liệu thời tiết hiện tại và thời điểm đang chọn
   const { currentData, selectedTime } = useWeather();
+  // Nếu chưa có dữ liệu, hiển thị thông báo Loading
   if (!currentData) {
-    return <div>Loading...</div>;
+    return <Loader />
+    //<div>Loading...</div>;
   }
   return (
 
     <div className="CurrentWeather" >
+      {/* Phần hiển thị nhiệt độ và icon*/}
       <div className="temperature">
         <div>
           <div className="weather-icon" >
@@ -30,6 +40,7 @@ function CurrentWheather() {
       </div>
 
       <div className="other-infos">
+        {/* Các chỉ số thời tiết khác */}
         <div className='widget'>
           <div className='widget-container'>
             <div className='info'>

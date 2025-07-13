@@ -1,7 +1,10 @@
+// Component ThemeBackground: thử nghiệm cơ chế toggle theme trong local component
+// Mục đích: giữ state `theme` (true/false), truyền xuống Header để chuyển theme
 import { useState } from 'react';
+import Header from '../components/Header';
 
 function themeBackground() {
-
+ // true = dark theme, false = light theme
   const [theme, setTheme] = useState(true);
 
   return (
@@ -11,5 +14,5 @@ function themeBackground() {
   );
 }
 
-export { ThemeProvider };
-export default ThemeContext;
+
+export default themeBackground;

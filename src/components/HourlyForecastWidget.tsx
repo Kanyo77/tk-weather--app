@@ -13,7 +13,6 @@ function HourlyForecastWidget({ data }) {
     const wheatherday = () => {
         var today = new Date();
         var time = today.getHours()
-        console.log(time)
     }
     const handleClick = (evt) => {
         viewElement(evt);
