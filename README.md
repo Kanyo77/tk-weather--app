@@ -8,10 +8,6 @@ Cho phép người dùng tìm kiếm thành phố, xem thời tiết hiện tạ
 ## 📸 Interface
 
 ![Screenshot1](https://github.com/Kanyo77/tk-weather--app/blob/dbeadbc893b19dda4f56111e6ce926f26087062c/Screenshot1.png)
-![Screenshot2](https://github.com/Kanyo77/tk-weather--app/blob/cf9b64b311241e5a0fb95bfd38efedba0d66a460/Screenshot2.png)
-![Screenshot3](https://github.com/Kanyo77/tk-weather--app/blob/cf9b64b311241e5a0fb95bfd38efedba0d66a460/Screenshot3.png)
-
----
 
 ## 🚀 Features
 
@@ -24,7 +20,9 @@ Cho phép người dùng tìm kiếm thành phố, xem thời tiết hiện tạ
 - 💾 Lưu cài đặt người dùng bằng LocalStorage
 - 📂 Dữ liệu lấy từ file JSON mô phỏng API
 
----
+![Screenshot2](https://github.com/Kanyo77/tk-weather--app/blob/cf9b64b311241e5a0fb95bfd38efedba0d66a460/Screenshot2.png)
+
+![Screenshot3](https://github.com/Kanyo77/tk-weather--app/blob/cf9b64b311241e5a0fb95bfd38efedba0d66a460/Screenshot3.png)
 
 ## 🛠️ Tech Stack
 
